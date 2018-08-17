@@ -1,18 +1,18 @@
 import app from '../lib/app'
 import * as mongoose from 'mongoose';
-
 import chai = require('chai')
 import ChaiHttp = require('chai-http');
 
 chai.use(ChaiHttp);
 let should = chai.should();
 
-before(function (done) {
-  console.log('jedziem')
-  if (process.env.NODE_ENV === 'test') {
-    mongoose.connection.db.dropDatabase(done);
-  }
-});
+before((done) => {
+  mongoose.connect(process.env.CONNECTION_STRING_TEST, () => {
+    mongoose.connection.db.dropDatabase(() => {
+      done()
+    })
+  })
+})
 
 describe('Happening - basic operations: POST, GET, PUT, DELETE that should return status 200  ', () => {
 
@@ -85,7 +85,7 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
       .end((err, res) => {
         res.should.be.json;
         res.should.have.status(200);
-        console.log(res.body)
+
         res.body[0].should.have.property('_id');
         res.body[0].should.have.property('firstName');
         res.body[0].should.have.property('lastName');
@@ -184,12 +184,3 @@ describe('Happening - POST operation that should return status 400  ', () => {
 
 
 })
-
-
-
-
-
-
-
-
-

@@ -9,6 +9,12 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/bson@*":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@types/bson/-/bson-1.0.11.tgz#c95ad69bb0b3f5c33b4bb6cc86d86cafb273335c"
+  dependencies:
+    "@types/node" "*"
+
 "@types/chai-as-promised@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@types/chai-as-promised/-/chai-as-promised-7.1.0.tgz#010b04cde78eacfb6e72bfddb3e58fe23c2e78b9"
@@ -70,6 +76,33 @@
 "@types/mocha@^5.2.5":
   version "5.2.5"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.5.tgz#8a4accfc403c124a0bafe8a9fc61a05ec1032073"
+
+"@types/mongodb@*":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.1.4.tgz#f0f6dc8d509500c4a8213238066b68f0c8cb25a9"
+  dependencies:
+    "@types/bson" "*"
+    "@types/events" "*"
+    "@types/node" "*"
+
+"@types/mongoose-promise@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@types/mongoose-promise/-/mongoose-promise-4.5.7.tgz#f3fbeff96a27edbe2bf247f34ae2c63ec400478b"
+  dependencies:
+    "@types/mongoose" "*"
+    "@types/mpromise" "*"
+
+"@types/mongoose@*", "@types/mongoose@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.2.5.tgz#3a8467549744c105515299acc6f590e5403fb277"
+  dependencies:
+    "@types/events" "*"
+    "@types/mongodb" "*"
+    "@types/node" "*"
+
+"@types/mpromise@*":
+  version "0.5.30"
+  resolved "https://registry.yarnpkg.com/@types/mpromise/-/mpromise-0.5.30.tgz#3ea8317d1f968face2f0f309f5ace92aab9a5280"
 
 "@types/node@*":
   version "10.7.1"
