@@ -7,19 +7,15 @@ const Happening = mongoose.model('Happening', HappeningSchema);
 export class HappeningController {
 
   public getAllHappenings(req: Request, res: Response) {
-    Happening.find({}).then((err, happeningsList) => {
-      if (err) {
-        res.send(err);
-      }
+    Happening.find({}).then((happeningsList) => {
+
       res.send(happeningsList);
     })
   }
 
   public getHappeningById(req: Request, res: Response) {
-    Happening.findById({ _id: req.params.id }).then((err, happening) => {
-      if (err) {
-        res.send(err);
-      }
+    Happening.findById({ _id: req.params.id }).then(( happening) => {
+
       res.send(happening);
     })
   }
@@ -44,10 +40,7 @@ export class HappeningController {
   }
 
   public deleteHappening(req: Request, res: Response) {
-    Happening.remove({ _id: req.params.id }, (err, happening) => {
-      if (err) {
-        res.send(err);
-      }
+    Happening.remove({ _id: req.params.id }, ( happening) => {
       res.json({ message: 'Successfully deleted happening!' });
     });
   }

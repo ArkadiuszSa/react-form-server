@@ -7,7 +7,7 @@ chai.use(ChaiHttp);
 let should = chai.should();
 
 before((done) => {
-  mongoose.connect(process.env.CONNECTION_STRING_TEST, () => {
+  mongoose.connect(process.env.CONNECTION_STRING_TEST, { useNewUrlParser: true }, () => {
     mongoose.connection.db.dropDatabase(() => {
       done()
     })
