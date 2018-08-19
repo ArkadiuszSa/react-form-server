@@ -1,21 +1,22 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { Routes } from "./routes/happening";
 import * as mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import * as cors from "cors";
+import {HappeningApplicationRoute} from './routes/happening-application'
+import {HappeningRoute} from './routes/happening'
 
 class App {
 
   public app: express.Application;
-  public routePrv: Routes = new Routes();
   public mongoUrl: string;
-
   constructor() {
     this.app = express();
     this.envConfig();
     this.config();
-    this.routePrv.routes(this.app);
+    this.routesConfig();
+    
+    //this.happeningApplicationRoute.routes(this.app);
     this.mongoSetup();
   }
 
@@ -26,6 +27,12 @@ class App {
     } else {
       this.mongoUrl = process.env.CONNECTION_STRING_DEV;
     }
+  }
+
+  private routesConfig() {
+    this.app.use('/api', HappeningApplicationRoute)
+    this.app.use('/api', HappeningRoute)
+
   }
 
   private config(): void {

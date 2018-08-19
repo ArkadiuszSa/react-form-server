@@ -19,22 +19,29 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
   let happeningId: string;
 
   let happeningMock = {
-    firstName: "Jan",
-    lastName: "Kowalski",
-    email: "test@gmail.com",
-    date: "2016-05-18T16:00:00Z"
+      title: 'Sumer Party',
+      description: 'Only this summer you can get your as on beach and dance with nice leadys!Only this summer you can get your as on beach and dance with nice leadys!Only this summer you can get your as on beach and dance with nice leadys! ',
+      days: [
+        '25-08-2018',
+        '01-09-2018',
+        '08-09-2018'
+        
+      ],
+      price: '10$'
   }
 
   let happeningUpdateMock = {
-    firstName: "Dariusz",
-    lastName: "Niekowalski",
-    email: "test2@gmail.com",
-    date: "2016-05-18T17:00:00Z"
+    title: 'AirShow',
+      description: 'You will be able to see the bravest pilots the world has seen!You will be able to see the bravest pilots the world has seen!You will be able to see the bravest pilots the world has seen! ',
+      days: [
+        '29-08-2018'
+      ],
+      price: '10$'
   }
 
   it('should post new happening', (done) => {
     chai.request(app)
-      .post('/happening')
+      .post('/api/happening')
       .send(happeningMock)
       .end((err, res) => {
         happeningId = res.body._id;
@@ -43,15 +50,11 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
         res.should.have.status(200);
 
         res.body.should.have.property('_id');
-        res.body.should.have.property('firstName');
-        res.body.should.have.property('lastName');
-        res.body.should.have.property('email');
-        res.body.should.have.property('date');
+        res.body.should.have.property('title');
+        res.body.should.have.property('description');
+        res.body.should.have.property('days');
+        res.body.should.have.property('price');
 
-        res.body._id.should.equal(happeningId);
-        res.body.firstName.should.equal(happeningMock.firstName);
-        res.body.lastName.should.equal(happeningMock.lastName);
-        res.body.email.should.equal(happeningMock.email);
 
         done();
       })
@@ -59,21 +62,18 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
 
   it('should get created happening by id', (done) => {
     chai.request(app)
-      .get('/happening/' + happeningId)
+      .get('/api/happening/' + happeningId)
       .end((err, res) => {
         res.should.be.json;
         res.should.have.status(200);
 
         res.body.should.have.property('_id');
-        res.body.should.have.property('firstName');
-        res.body.should.have.property('lastName');
-        res.body.should.have.property('email');
-        res.body.should.have.property('date');
+        res.body.should.have.property('title');
+        res.body.should.have.property('description');
+        res.body.should.have.property('days');
+        res.body.should.have.property('price');
 
-        res.body._id.should.equal(happeningId);
-        res.body.firstName.should.equal(happeningMock.firstName);
-        res.body.lastName.should.equal(happeningMock.lastName);
-        res.body.email.should.equal(happeningMock.email);
+
 
         done();
       })
@@ -81,21 +81,16 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
 
   it('should get created happening as list', (done) => {
     chai.request(app)
-      .get('/happenings')
+      .get('/api/happenings')
       .end((err, res) => {
         res.should.be.json;
         res.should.have.status(200);
 
         res.body[0].should.have.property('_id');
-        res.body[0].should.have.property('firstName');
-        res.body[0].should.have.property('lastName');
-        res.body[0].should.have.property('email');
-        res.body[0].should.have.property('date');
-
-        res.body[0]._id.should.equal(happeningId);
-        res.body[0].firstName.should.equal(happeningMock.firstName);
-        res.body[0].lastName.should.equal(happeningMock.lastName);
-        res.body[0].email.should.equal(happeningMock.email);
+        res.body[0].should.have.property('title');
+        res.body[0].should.have.property('description');
+        res.body[0].should.have.property('days');
+        res.body[0].should.have.property('price');
 
         done();
       })
@@ -103,7 +98,7 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
 
   it('should update created happening by id', (done) => {
     chai.request(app)
-      .put('/happening/' + happeningId)
+      .put('/api/happening/' + happeningId)
       .send(happeningUpdateMock)
       .end((err, res) => {
         happeningId = res.body._id;
@@ -112,15 +107,11 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
         res.should.have.status(200);
 
         res.body.should.have.property('_id');
-        res.body.should.have.property('firstName');
-        res.body.should.have.property('lastName');
-        res.body.should.have.property('email');
-        res.body.should.have.property('date');
+        res.body.should.have.property('title');
+        res.body.should.have.property('description');
+        res.body.should.have.property('days');
+        res.body.should.have.property('price');
 
-        res.body._id.should.equal(happeningId);
-        res.body.firstName.should.equal(happeningUpdateMock.firstName);
-        res.body.lastName.should.equal(happeningUpdateMock.lastName);
-        res.body.email.should.equal(happeningUpdateMock.email);
 
         done();
       })
@@ -128,7 +119,7 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
 
   it('should delete created happening by id', (done) => {
     chai.request(app)
-      .del('/happening/' + happeningId)
+      .del('/api/happening/' + happeningId)
       .send(happeningUpdateMock)
       .end((err, res) => {
         res.should.be.json;
@@ -144,43 +135,22 @@ describe('Happening - POST operation that should return status 400  ', () => {
 
   it('should return erros messages due to require validation', (done) => {
     chai.request(app)
-      .post('/happening')
+      .post('/api/happening')
       .send({
-        firstName: "",
-        lastName: "",
-        email: "",
-        date: ""
+        title: "",
+        description: "",
+        days: "",
+        price: ""
       })
       .end((err, res) => {
         res.should.be.json;
         res.should.have.status(400);
-        res.body.errors[0].msg.should.equal('firstName is required');
-        res.body.errors[1].msg.should.equal('lastName is required');
-        res.body.errors[2].msg.should.equal('email is required');
-        res.body.errors[3].msg.should.equal('date is required');
+        res.body.errors[0].msg.should.equal('title is required');
+        res.body.errors[1].msg.should.equal('description is required');
+        res.body.errors[2].msg.should.equal('days is required');
+        res.body.errors[3].msg.should.equal('price is required');
 
         done();
       })
   })
-
-  it('should return erros messages due to email and date validation', (done) => {
-    chai.request(app)
-      .post('/happening')
-      .send({
-        firstName: "Adam",
-        lastName: "Kowalski",
-        email: "kowal2amorki.wp.pl",
-        date: "13 sierpnia 2018"
-      })
-      .end((err, res) => {
-        res.should.be.json;
-        res.should.have.status(400);
-        res.body.errors[0].msg.should.equal('email must be in email format, e.g. some@some.com');
-        res.body.errors[1].msg.should.equal('date must be in ISO8601 format, e.g. 2016-05-18T16:00:00Z');
-
-        done();
-      })
-  })
-
-
 })

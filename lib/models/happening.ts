@@ -3,16 +3,18 @@ import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const HappeningSchema = new Schema({
-  firstName: {
+  title: {
     type: String,
   },
-  lastName: {
+  description: {
     type: String,
   },
-  email: {
-    type: String            
+  days: {
+    type: [
+      String
+    ]     
   },
-  date: {
-    type: Date
+  price: {
+    type: String
   }
 });

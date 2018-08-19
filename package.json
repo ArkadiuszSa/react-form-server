@@ -6,7 +6,7 @@
     "watch": "nodemon --exec ts-node -- ./lib/server.ts",
     "start": "nodemon ./dist/server.js",
     "prod": "yarn run build && yarn run start",
-    "test": "mocha -r ts-node/register ./test/happening.ts",
+    "test": "mocha -r ts-node/register ./test/*",
     "test-server": "SET NODE_ENV=test && yarn run watch"
   },
   "name": "react-form-server",

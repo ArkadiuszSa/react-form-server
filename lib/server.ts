@@ -1,4 +1,4 @@
-import app from './app';
+import app  from './app';
 
 app.get('/', (req, res) => res.send('React-Form api is online!'))
 
