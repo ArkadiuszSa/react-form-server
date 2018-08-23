@@ -44,6 +44,11 @@ describe('Happening - basic operations: POST, GET, PUT, DELETE that should retur
       .post('/api/happening')
       .send(happeningMock)
       .end((err, res) => {
+        console.log('*******')
+        console.log(res.body)
+        console.log(err)
+        console.log('*******')
+
         happeningId = res.body._id;
 
         res.should.be.json;

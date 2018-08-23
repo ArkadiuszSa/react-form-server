@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-export const HappeningApplicationSchema = new Schema({
+export const ApplicationSchema = new Schema({
   happeningId:{
     type: String
   },

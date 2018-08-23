@@ -8,14 +8,12 @@ export class HappeningController {
 
   public getAllHappenings(req: Request, res: Response) {
     Happening.find({}).then((happeningsList) => {
-
       res.send(happeningsList);
     })
   }
 
   public getHappeningById(req: Request, res: Response) {
     Happening.findById({ _id: req.params.id }).then(( happening) => {
-
       res.send(happening);
     })
   }
@@ -30,7 +28,7 @@ export class HappeningController {
     });
   }
 
-  public updateHappening(req: Request, res: Response) {
+  public updateHappening(req: Request, res: Response) {    
     Happening.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, happening) => {
       if (err) {
         res.send(err);

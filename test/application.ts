@@ -14,7 +14,7 @@ before((done) => {
   })
 })
 
-describe('HappeningApplication - basic operations: POST, GET, PUT, DELETE that should return status 200  ', () => {
+xdescribe('Application - basic operations: POST, GET, PUT, DELETE that should return status 200  ', () => {
 
   let happeningId: string;
 
@@ -140,7 +140,7 @@ describe('HappeningApplication - basic operations: POST, GET, PUT, DELETE that s
   })
 })
 
-describe('HappeningApplication - POST operation that should return status 400  ', () => {
+xdescribe('Application - POST operation that should return status 400  ', () => {
 
   it('should return erros messages due to require validation', (done) => {
     chai.request(app)

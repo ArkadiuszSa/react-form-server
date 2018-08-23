@@ -7,12 +7,12 @@ import { HappeningController } from '../controllers/happening';
 
 const router: Router = Router();
 
-const happeningApplication = mongoose.model('Happening', HappeningSchema);
-let happeningApplicationController: HappeningController = new HappeningController();
+const happening = mongoose.model('Happening', HappeningSchema);
+let happeningController: HappeningController = new HappeningController();
 
-router.get('/happenings', happeningApplicationController.getAllHappenings);
+router.get('/happenings', happeningController.getAllHappenings);
 
-router.get('/happening/:id', happeningApplicationController.getHappeningById)
+router.get('/happening/:id', happeningController.getHappeningById)
 
 router.post('/happening', [
   check('title', 'title is required').not().isEmpty(),
@@ -26,13 +26,16 @@ router.post('/happening', [
   } else {
     next();
   }
-}, happeningApplicationController.addNewHappening)
+}, happeningController.addNewHappening)
 
 router.put('/happening/:id', [
+  check('id', 'id is not a valid mongo id').isMongoId(),
   check('title', 'title is required').not().isEmpty(),
   check('description', 'description is required').not().isEmpty(),
   check('days', 'days is required').not().isEmpty(),
-  check('price', 'price is required').not().isEmpty()
+  check('price', 'price is required').not().isEmpty(),
+
+  
 ], (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -40,9 +43,9 @@ router.put('/happening/:id', [
   } else {
     next();
   }
-}, happeningApplicationController.updateHappening)
+}, happeningController.updateHappening)
 
-router.delete('/happening/:id', happeningApplicationController.deleteHappening)
+router.delete('/happening/:id', happeningController.deleteHappening)
 
 export const HappeningRoute: Router = router;
 
