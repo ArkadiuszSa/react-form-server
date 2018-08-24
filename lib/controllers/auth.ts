@@ -25,7 +25,7 @@ export class AuthController {
       if (err) return res.status(500).send("There was a problem registering the user.")
       
       let role;
-      if(req.body.email='admin@admin.com') {
+      if(req.body.email==='admin@admin.com') {
         role='admin'
       } else {
         role='user'
@@ -50,7 +50,7 @@ export class AuthController {
       if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
       
       let role;
-      if(req.body.email='admin@admin.com') {
+      if(req.body.email==='admin@admin.com') {
         role='admin'
       } else {
         role='user'
@@ -64,7 +64,6 @@ export class AuthController {
       });
       res.status(200).send({ auth: true, token: token, id: user._id, role:role});
     });
-
 
   }
 
