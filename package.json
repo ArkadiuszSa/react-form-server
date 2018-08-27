@@ -4,8 +4,8 @@
     "build": "tsc",
     "dev": "ts-node ./lib/server.ts",
     "watch": "SET NODE_ENV=dev&& nodemon --exec ts-node -- ./lib/server.ts",
-    "start": "nodemon ./dist/lib/server.js",
-    "prod": "yarn run build && yarn run start",
+    "prod": "nodemon ./dist/lib/server.js",
+    "start": "yarn run build && yarn run prod",
     "u-test": "SET NODE_ENV=unit-test && mocha --timeout 20000 -r ts-node/register ./tests/unit/*",
     "i-test": "SET NODE_ENV=integration-test && mocha -r ts-node/register ./tests/integration/*"
   },
