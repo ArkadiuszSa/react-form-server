@@ -12,7 +12,7 @@ export const HappeningSchema = new Schema({
   days: {
     type: [
       String
-    ]     
+    ]
   },
   price: {
     type: String

@@ -6,12 +6,12 @@ class RouteGuard {
   public protectedRoutes = [
     {
       path: "/api/happening",
-      methods: ['POST',"PUT",'DELETE',],
+      methods: ['POST', "PUT", 'DELETE',],
       role: 'admin'
     },
     {
       path: "/api/application",
-      methods: ['GET','PUT','DELETE'],
+      methods: ['GET', 'PUT', 'DELETE'],
       role: 'admin'
     },
     {

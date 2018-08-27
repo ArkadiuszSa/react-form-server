@@ -6,6 +6,7 @@ import { ApplicationRoute } from './routes/application'
 import { HappeningRoute } from './routes/happening'
 import { AuthRoute } from './routes/auth'
 import interceptor from './route-guard'
+import DatabaseConfig from './database-config'
 class App {
 
   public app: express.Application;
@@ -13,6 +14,7 @@ class App {
   constructor() {
     this.app = express();
     this.envConfig();
+    new DatabaseConfig();
     this.config();
     this.routesConfig();
   }

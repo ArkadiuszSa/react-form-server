@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const ApplicationSchema = new Schema({
-  happeningId:{
+  happeningId: {
     type: String
   },
   firstName: {
@@ -13,7 +13,7 @@ export const ApplicationSchema = new Schema({
     type: String,
   },
   email: {
-    type: String            
+    type: String
   },
   date: {
     type: Date

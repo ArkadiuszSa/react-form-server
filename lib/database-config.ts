@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 import { Mockgoose } from "mockgoose"
 
-class DatabaseConfig {
+export default class DatabaseConfig {
 
   private mongoUrl: string;
 
@@ -15,7 +15,7 @@ class DatabaseConfig {
 
     if (process.env.NODE_ENV === 'prod') {
       this.mongoUrl = process.env.CONNECTION_STRING_PROD;
-    } else if ((process.env.NODE_ENV === 'dev')) {
+    } else if (process.env.NODE_ENV === 'dev') {
       this.mongoUrl = process.env.CONNECTION_STRING_DEV;
     }
 
@@ -25,4 +25,3 @@ class DatabaseConfig {
   }
 }
 
-export default new DatabaseConfig()

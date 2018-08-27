@@ -15,9 +15,9 @@ describe('Happening', () => {
   let token;
 
 
-  before(function(done) {
-    mockgoose.prepareStorage().then(function() {
-      mongoose.connect('mongodb://example.com/TestingDB', function(err) {
+  before(function (done) {
+    mockgoose.prepareStorage().then(function () {
+      mongoose.connect('mongodb://example.com/TestingDB', function (err) {
         chai.request(app)
           .post('/api/register')
           .send(adminMock)
@@ -25,12 +25,12 @@ describe('Happening', () => {
 
             res.body.should.have.property('token');
             token = res.body.token;
-            
+
             done();
           })
       });
     });
-});
+  });
 
   describe('basic operations: POST, GET, PUT, DELETE that should return status 200  ', () => {
 

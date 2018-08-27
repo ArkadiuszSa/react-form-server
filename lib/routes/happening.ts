@@ -35,7 +35,7 @@ router.put('/happening/:id', [
   check('days', 'days is required').not().isEmpty(),
   check('price', 'price is required').not().isEmpty(),
 
-  
+
 ], (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

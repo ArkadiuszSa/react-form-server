@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import {ApplicationSchema } from '../models/application';
+import { ApplicationSchema } from '../models/application';
 import { HappeningSchema } from '../models/happening';
 
 import { Request, Response } from 'express';
@@ -22,7 +22,6 @@ export class ApplicationController {
     })
   }
 
-
   public addNewApplication(req: Request, res: Response) {
 
     let isApplicationNewPromise = Application.findOne({
@@ -31,7 +30,7 @@ export class ApplicationController {
         { happeningId: req.body.happeningId }
       ]
     })
-    
+
     let isHappeningExistPromise = Happening.findById({ _id: req.body.happeningId })
 
     Promise.all([isApplicationNewPromise, isHappeningExistPromise]).then(([application, happening]) => {
@@ -41,8 +40,9 @@ export class ApplicationController {
       if (happening === null) {
         errors.push('Happening not founded')
       }
+
       if (application !== null) {
-        errors.push('This email is alredy signed up for this event')
+        errors.push('This email is already signed up for this event')
       }
 
       if (errors.length === 0) {

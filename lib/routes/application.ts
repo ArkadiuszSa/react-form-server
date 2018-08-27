@@ -44,7 +44,7 @@ router.put('/application/:id', [
   check('email', 'email must be in email format, e.g. some@some.com').isEmail(),
   check('date', 'date must be in ISO8601 format, e.g. 2016-05-18T16:00:00Z').isISO8601()
 ], (req, res, next) => {
-  
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -53,10 +53,10 @@ router.put('/application/:id', [
   }
 }, applicationController.updateApplication)
 
-router.delete('/application/:id',[
+router.delete('/application/:id', [
   check('id', 'id is not valid mongo id').isMongoId(),
 ],
- applicationController.deleteApplication)
+  applicationController.deleteApplication)
 
 export const ApplicationRoute: Router = router;
 

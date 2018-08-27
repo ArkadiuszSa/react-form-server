@@ -23,7 +23,7 @@ describe('Happening', () => {
 
             res.body.should.have.property('token');
             token = res.body.token;
-            
+
             done();
           })
       })

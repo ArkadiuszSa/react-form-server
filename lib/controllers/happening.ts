@@ -13,7 +13,7 @@ export class HappeningController {
   }
 
   public getHappeningById(req: Request, res: Response) {
-    Happening.findById({ _id: req.params.id }).then(( happening) => {
+    Happening.findById({ _id: req.params.id }).then((happening) => {
       res.send(happening);
     })
   }
@@ -28,7 +28,7 @@ export class HappeningController {
     });
   }
 
-  public updateHappening(req: Request, res: Response) {    
+  public updateHappening(req: Request, res: Response) {
     Happening.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, happening) => {
       if (err) {
         res.send(err);
@@ -38,9 +38,9 @@ export class HappeningController {
   }
 
   public deleteHappening(req: Request, res: Response) {
-    Happening.remove({ _id: req.params.id }, ( happening) => {
+    Happening.remove({ _id: req.params.id }, (happening) => {
       res.json({ message: 'Successfully deleted happening!' });
     });
   }
-  
+
 }

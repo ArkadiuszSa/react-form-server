@@ -8,7 +8,7 @@ import { UserSchema } from '../models/user';
 const router: Router = Router();
 
 const User = mongoose.model('User', UserSchema);
-let authController:AuthController = new AuthController();
+let authController: AuthController = new AuthController();
 
 router.post('/login', [
   check('email', 'email is required').not().isEmpty(),
@@ -22,13 +22,13 @@ router.post('/login', [
   } else {
     next();
   }
-},authController.login)
+}, authController.login)
 
 router.post('/register', [
   check('email', 'email is required').not().isEmpty(),
   check('email', 'email must be in email format, e.g. some@some.com').isEmail(),
   check('password', 'password is required').not().isEmpty(),
-  
+
 ], (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -36,7 +36,7 @@ router.post('/register', [
   } else {
     next();
   }
-},authController.register)
+}, authController.register)
 
 
 export const AuthRoute: Router = router;

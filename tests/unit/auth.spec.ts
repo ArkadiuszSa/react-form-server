@@ -7,12 +7,12 @@ import * as mongoose from "mongoose";
 var Mockgoose = require('mockgoose').Mockgoose;
 var mockgoose = new Mockgoose(mongoose);
 
-before(function(done) {
-    mockgoose.prepareStorage().then(function() {
-      mongoose.connect('mongodb://example.com/TestingDB', function(err) {
-        done();
-      });
+before(function (done) {
+  mockgoose.prepareStorage().then(function () {
+    mongoose.connect('mongodb://example.com/TestingDB', function (err) {
+      done();
     });
+  });
 });
 
 describe('Auth', () => {
@@ -103,7 +103,7 @@ describe('Auth', () => {
   })
 })
 
-after(function(done) {
+after(function (done) {
   mockgoose.helper.reset().then(() => {
     done()
   });
