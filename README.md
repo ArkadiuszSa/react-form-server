@@ -68,7 +68,9 @@ I created only integration tests with mocha/chai that check if the endpoints wor
 There is a posibility to register new user, but on client only admin is important. Registred user don't have additional permissions. User registered with email admin@admin.com will get admin role.
 
 ##### Happening
+
 User can only get happening/s.
+
 | Route          | Method | Action                 | Protected     |
 |----------------|--------|------------------------|---------------|
 | /happenings    | GET    | get all happenings     | no            |
@@ -78,7 +80,9 @@ User can only get happening/s.
 | /happening/:id | DELETE | delete happening by id | by admin role |
 
 ##### Application
+
 User can only add new application.
+
 | Route            | Method | Action                   | Protected     |
 |------------------|--------|--------------------------|---------------|
 | /applications    | GET    | get all applications     | by admin role |
