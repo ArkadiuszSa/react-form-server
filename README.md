@@ -68,23 +68,21 @@ I created only integration tests with mocha/chai that check if the endpoints wor
 There is a posibility to register new user, but on client only admin is important. Registred user don't have additional permissions. User registered with email admin@admin.com will get admin role.
 
 ##### Happening
-
 User can only get happening/s.
-| Route | Method | Action | Protected |
+| Route          | Method | Action                 | Protected     |
 |----------------|--------|------------------------|---------------|
-| /happenings | GET | get all happenings | no |
-| /happening/:id | GET | get happening by id | no |
-| /happening | POST | create new happening | by admin role |
-| /happening/:id | PUT | update happening by id | by admin role |
+| /happenings    | GET    | get all happenings     | no            |
+| /happening/:id | GET    | get happening by id    | no            |
+| /happening     | POST   | create new happening   | by admin role |
+| /happening/:id | PUT    | update happening by id | by admin role |
 | /happening/:id | DELETE | delete happening by id | by admin role |
 
 ##### Application
-
 User can only add new application.
-| Route | Method | Action | Protected |
+| Route            | Method | Action                   | Protected     |
 |------------------|--------|--------------------------|---------------|
-| /applications | GET | get all applications | by admin role |
-| /application/:id | GET | get application by id | by admin role |
-| /application | POST | create new application | no |
-| /application/:id | PUT | update application by id | by admin role |
+| /applications    | GET    | get all applications     | by admin role |
+| /application/:id | GET    | get application by id    | by admin role |
+| /application     | POST   | create new application   | no            |
+| /application/:id | PUT    | update application by id | by admin role |
 | /application/:id | DELETE | delete application by id | by admin role |
