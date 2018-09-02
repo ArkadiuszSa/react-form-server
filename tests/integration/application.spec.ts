@@ -2,9 +2,10 @@ import app from "../../lib/app";
 import * as mongoose from "mongoose";
 import chai = require("chai");
 import ChaiHttp = require("chai-http");
+var Mockgoose = require("mockgoose").Mockgoose;
+var mockgoose = new Mockgoose(mongoose);
 
 chai.use(ChaiHttp);
-let should = chai.should();
 
 let adminMock = {
   email: "admin@admin.com",
@@ -37,35 +38,48 @@ let applicationUpdateMock = {
   date: "2016-05-18T17:00:00Z"
 };
 
+const setUp = done => {
+  chai
+    .request(app)
+    .post("/api/register")
+    .send(adminMock)
+    .end((err, res) => {
+      token = res.body.token;
+
+      chai
+        .request(app)
+        .post("/api/happening")
+        .set("authorization", token)
+        .send(happeningMock)
+        .set("auth-token", "tokenValue")
+        .end((err, res) => {
+          applicationMock.happeningId = res.body._id;
+          applicationUpdateMock.happeningId = res.body._id;
+
+          done();
+        });
+    });
+};
+
 before(done => {
-  mongoose.connect(
-    process.env.CONNECTION_STRING_TEST,
-    { useNewUrlParser: true },
-    () => {
-      mongoose.connection.db.dropDatabase(() => {
-        chai
-          .request(app)
-          .post("/api/register")
-          .send(adminMock)
-          .end((err, res) => {
-            token = res.body.token;
-
-            chai
-              .request(app)
-              .post("/api/happening")
-              .set("authorization", token)
-              .send(happeningMock)
-              .set("auth-token", "tokenValue")
-              .end((err, res) => {
-                applicationMock.happeningId = res.body._id;
-                applicationUpdateMock.happeningId = res.body._id;
-
-                done();
-              });
-          });
-      });
-    }
-  );
+  if (process.env.NODE_ENV === "normalDb") {
+    mongoose.connect(
+      process.env.CONNECTION_STRING_TEST,
+      { useNewUrlParser: true },
+      () => {
+        setUp(done);
+      }
+    );
+  } else if (process.env.NODE_ENV === "mockedDb") {
+    mockgoose.prepareStorage().then(function() {
+      mongoose.connect(
+        "mongodb://example.com/TestingDB",
+        function(err) {
+          setUp(done);
+        }
+      );
+    });
+  }
 });
 
 describe("Application", () => {
@@ -225,5 +239,46 @@ describe("Application", () => {
           done();
         });
     });
+  });
+  describe("Stress tests of POST application", () => {
+    const addApplicationStress = (requestsNumber: number, done) => {
+      let counter = 0;
+      for (let i = 0; i < requestsNumber; i++) {
+        let applicationMockStress = {
+          happeningId: applicationMock.happeningId,
+          firstName: "Jan",
+          lastName: "Kowalski",
+          email: requestsNumber.toString() + "test" + i + "@gmail.com",
+          date: "2016-05-18T16:00:00Z"
+        };
+
+        chai
+          .request(app)
+          .post("/api/application")
+          .send(applicationMockStress)
+          .end((err, res) => {
+            res.should.be.json;
+            res.should.have.status(200);
+            res.body.should.have.property("_id");
+            res.body.should.have.property("firstName");
+            res.body.should.have.property("lastName");
+            res.body.should.have.property("email");
+            res.body.should.have.property("date");
+
+            counter++;
+            if (counter === requestsNumber) {
+              done();
+            }
+          });
+      }
+    };
+
+    it("should return status 200 for 100 POST application", done => {
+      addApplicationStress(100, done);
+    }).timeout(20000);
+
+    it("should return status 200 for 200 POST application", done => {
+      addApplicationStress(200, done);
+    }).timeout(20000);
   });
 });

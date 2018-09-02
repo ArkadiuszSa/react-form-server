@@ -1,5 +1,4 @@
 import * as mongoose from "mongoose";
-import { Mockgoose } from "mockgoose";
 
 export default class DatabaseConfig {
   private mongoUrl: string;

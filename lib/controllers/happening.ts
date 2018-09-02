@@ -12,9 +12,13 @@ export class HappeningController {
   }
 
   public getHappeningById(req: Request, res: Response) {
-    Happening.findById({ _id: req.params.id }).then(happening => {
-      res.send(happening);
-    });
+    Happening.findById({ _id: req.params.id })
+      .then(happening => {
+        res.send(happening);
+      })
+      .catch(err => {
+        res.send({ message: "Cannot find happening" });
+      });
   }
 
   public addNewHappening(req: Request, res: Response) {

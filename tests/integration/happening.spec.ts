@@ -5,11 +5,12 @@ import ChaiHttp = require("chai-http");
 
 describe("Happening", () => {
   chai.use(ChaiHttp);
-  let should = chai.should();
+
   let adminMock = {
     email: "admin@admin.com",
     password: "admin"
   };
+
   let token;
 
   before(done => {
@@ -33,24 +34,24 @@ describe("Happening", () => {
     );
   });
 
+  let happeningMock = {
+    title: "Sumer Party",
+    description:
+      "Only this summer you can get your as on beach and dance with nice leadys!Only this summer you can get your as on beach and dance with nice leadys!Only this summer you can get your as on beach and dance with nice leadys! ",
+    days: ["25-08-2018", "01-09-2018", "08-09-2018"],
+    price: "10$"
+  };
+
+  let happeningUpdateMock = {
+    title: "AirShow",
+    description:
+      "You will be able to see the bravest pilots the world has seen!You will be able to see the bravest pilots the world has seen!You will be able to see the bravest pilots the world has seen! ",
+    days: ["29-08-2018"],
+    price: "10$"
+  };
+
   describe("basic operations: POST, GET, PUT, DELETE that should return status 200  ", () => {
     let happeningId: string;
-
-    let happeningMock = {
-      title: "Sumer Party",
-      description:
-        "Only this summer you can get your as on beach and dance with nice leadys!Only this summer you can get your as on beach and dance with nice leadys!Only this summer you can get your as on beach and dance with nice leadys! ",
-      days: ["25-08-2018", "01-09-2018", "08-09-2018"],
-      price: "10$"
-    };
-
-    let happeningUpdateMock = {
-      title: "AirShow",
-      description:
-        "You will be able to see the bravest pilots the world has seen!You will be able to see the bravest pilots the world has seen!You will be able to see the bravest pilots the world has seen! ",
-      days: ["29-08-2018"],
-      price: "10$"
-    };
 
     it("should post new happening", done => {
       chai
@@ -191,5 +192,57 @@ describe("Happening", () => {
           done();
         });
     });
+  });
+
+  describe("Stress tests of GET hapening by id", () => {
+    let happeningId;
+    before(done => {
+      chai
+        .request(app)
+        .post("/api/happening")
+        .set("authorization", token)
+        .send(happeningMock)
+        .set("auth-token", "tokenValue")
+        .end((err, res) => {
+          happeningId = res.body._id;
+
+          res.should.be.json;
+          res.should.have.status(200);
+
+          res.body.should.have.property("_id");
+          res.body.should.have.property("title");
+          res.body.should.have.property("description");
+          res.body.should.have.property("days");
+          res.body.should.have.property("price");
+
+          done();
+        });
+    });
+
+    const getHappeningsStress = (requestsNumber: number, done) => {
+      let counter = 0;
+      for (let i = 0; i < requestsNumber; i++) {
+        chai
+          .request(app)
+          .get("/api/happening/" + happeningId)
+          .end((err, res) => {
+            res.should.be.json;
+            res.should.have.status(200);
+            counter++;
+
+            if (counter === requestsNumber) {
+              done();
+            }
+          });
+      }
+    };
+
+    it("should return status 200 for 100 request for GET by id", done => {
+      getHappeningsStress(100, done);
+    }).timeout(20000);
+
+    it("should return status 200 for 500 request for GET by id", done => {
+      getHappeningsStress(500, done);
+    }).timeout(20000);
   });
 });
