@@ -14,7 +14,7 @@ Main techs:
 - Typescript, ts-node
 - Mocha/Chai
 
-### Instalation and scripts
+### Installation and scripts
 
 To start the app you should run `yarn install` and `yarn watch`. By default you can use db connection strings stored in .env file.
 
