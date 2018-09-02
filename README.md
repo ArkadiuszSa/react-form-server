@@ -39,11 +39,12 @@ I created only integration tests with mocha/chai that check if the endpoints wor
 
 ##### Happening
 
-| Name          | Type     |
-| ------------- | -------- |
-| title         | string   |
-| descscription | string[] |
-| price         | string   |
+| Name        | Type     |
+| ----------- | -------- |
+| title       | string   |
+| description | string   |
+| days        | string[] |
+| price       | string   |
 
 ##### Application
 
