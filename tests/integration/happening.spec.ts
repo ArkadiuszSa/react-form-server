@@ -5,6 +5,7 @@ import ChaiHttp = require("chai-http");
 
 describe("Happening", () => {
   chai.use(ChaiHttp);
+  chai.should();
 
   let adminMock = {
     email: "admin@admin.com",
@@ -219,7 +220,7 @@ describe("Happening", () => {
         });
     });
 
-    const getHappeningsStress = (requestsNumber: number, done) => {
+    const getHappeningByIdStress = (requestsNumber: number, done) => {
       let counter = 0;
       for (let i = 0; i < requestsNumber; i++) {
         chai
@@ -238,10 +239,37 @@ describe("Happening", () => {
     };
 
     it("should return status 200 for 100 request for GET by id", done => {
-      getHappeningsStress(100, done);
+      getHappeningByIdStress(100, done);
     }).timeout(20000);
 
     it("should return status 200 for 500 request for GET by id", done => {
+      getHappeningByIdStress(500, done);
+    }).timeout(20000);
+  });
+  describe("Stress tests of GET hapenings", () => {
+    const getHappeningsStress = (requestsNumber: number, done) => {
+      let counter = 0;
+      for (let i = 0; i < requestsNumber; i++) {
+        chai
+          .request(app)
+          .get("/api/happenings")
+          .end((err, res) => {
+            res.should.be.json;
+            res.should.have.status(200);
+            counter++;
+
+            if (counter === requestsNumber) {
+              done();
+            }
+          });
+      }
+    };
+
+    it("should return status 200 for 100 request for GET all happenings", done => {
+      getHappeningsStress(100, done);
+    }).timeout(20000);
+
+    it("should return status 200 for 500 request for GET all happenings", done => {
       getHappeningsStress(500, done);
     }).timeout(20000);
   });

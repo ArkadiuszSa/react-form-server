@@ -6,7 +6,7 @@ var Mockgoose = require("mockgoose").Mockgoose;
 var mockgoose = new Mockgoose(mongoose);
 
 chai.use(ChaiHttp);
-
+chai.should();
 let adminMock = {
   email: "admin@admin.com",
   password: "admin"

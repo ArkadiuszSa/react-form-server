@@ -5,7 +5,7 @@ import ChaiHttp = require("chai-http");
 
 describe("Auth", () => {
   chai.use(ChaiHttp);
-
+  chai.should();
   let userMock = {
     email: "user@user.com",
     password: "UserPassword1"
